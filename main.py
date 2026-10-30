@@ -47,7 +47,7 @@ def load_data(input_file):
         logging.error(f"Error loading data: {e}")
         sys.exit(1)
 
-def simplify_relationships(data, remove_redundant=False, remove_non_essential=False):
+def simplify_relationships(data, remove_redundant=False, remove_non_essential=False, seed=None):
     """
     Simplifies data relationships by removing redundant or non-essential relationships.
 
@@ -83,12 +83,26 @@ def simplify_relationships(data, remove_redundant=False, remove_non_essential=Fa
     simplified_relationships = relationships[:]  # Start with a copy of the original relationships
 
     if remove_redundant:
-        # Example: Removing duplicates (assuming each relationship is a tuple of (dataset1, dataset2))
+        # Dedup key must capture the whole relationship. tuple(r) on a dict
+        # relationship yields only its keys, so {"from": "a", "to": "b"} and
+        # {"from": "c", "to": "d"} collided and the second was dropped as a
+        # false duplicate. A canonical JSON rendering keeps values in the key.
+        def dedup_key(rel):
+            try:
+                return json.dumps(rel, sort_keys=True, default=str)
+            except TypeError:
+                return repr(rel)
         seen = set()
-        simplified_relationships = [r for r in simplified_relationships if tuple(r) not in seen and not seen.add(tuple(r))]
+        simplified_relationships = [r for r in simplified_relationships if dedup_key(r) not in seen and not seen.add(dedup_key(r))]
         logging.info("Redundant relationships removed.")
 
     if remove_non_essential:
+        # The keep/drop draw below uses the random module. Seed it here when a
+        # seed was supplied; anonymize_data seeds it too, but that only runs
+        # when --anonymize-data is passed, so a simplify-only run used to
+        # ignore --seed entirely.
+        if seed is not None:
+            random.seed(seed)
         # Example: Removing relationships based on a simple heuristic (e.g., relationships with low interaction count)
         simplified_relationships = [r for r in simplified_relationships if random.random() > 0.2] #Keep 80% of relationships
         logging.info("Non-essential relationships removed.")
@@ -197,7 +211,7 @@ def main():
 
     try:
         data = load_data(args.input)
-        simplified_data = simplify_relationships(data, args.remove_redundant, args.remove_non_essential)
+        simplified_data = simplify_relationships(data, args.remove_redundant, args.remove_non_essential, args.seed)
 
         if args.anonymize_data:
             simplified_data = anonymize_data(simplified_data, args.anonymization_level, args.seed)
