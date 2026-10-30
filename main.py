@@ -146,7 +146,7 @@ def anonymize_data(data, level='medium', seed=None):
                         record[key] = fake.phone_number()
                 elif level == 'medium':
                     # Replace with more generic data (e.g., generic names, addresses)
-                     if isinstance(value, str):
+                    if isinstance(value, str):
                         if "name" in key.lower():
                             record[key] = fake.name()
                         elif "email" in key.lower():
