@@ -3,6 +3,7 @@ import logging
 import json
 import sys
 import random
+from pathlib import Path
 from faker import Faker
 
 # Configure logging
@@ -18,7 +19,7 @@ def setup_argparse():
     parser.add_argument('-i', '--input', type=str, required=True, help='Path to the input JSON file containing data relationships.')
     parser.add_argument('-o', '--output', type=str, required=True, help='Path to the output JSON file to save the simplified relationships.')
     parser.add_argument('--remove-redundant', action='store_true', help='Remove redundant relationships.')
-    parser.add_argument('--remove-non-essential', action='store_true', help='Remove non-essential relationships.')
+    parser.add_argument('--remove-non-essential', action='store_true', help='Remove non-essential relationships. A relationship marked essential in its data (essential or is_essential set to true) is never removed. Only relationships not marked essential are candidates, and about 20 percent of those candidates are randomly removed.')
     parser.add_argument('--anonymize-data', action='store_true', help='Anonymize data in the datasets.')
     parser.add_argument('--anonymization-level', type=str, choices=['low', 'medium', 'high'], default='medium', help='Level of anonymization (low, medium, high). Defaults to medium.')
     parser.add_argument('--seed', type=int, help='Seed for random number generator (for reproducibility).')
@@ -103,9 +104,23 @@ def simplify_relationships(data, remove_redundant=False, remove_non_essential=Fa
         # ignore --seed entirely.
         if seed is not None:
             random.seed(seed)
-        # Example: Removing relationships based on a simple heuristic (e.g., relationships with low interaction count)
-        simplified_relationships = [r for r in simplified_relationships if random.random() > 0.2] #Keep 80% of relationships
-        logging.info("Non-essential relationships removed.")
+        # Essentiality rule: a relationship whose data marks it essential is
+        # never removed by this flag. The marker is an "essential" or
+        # "is_essential" field set to a true value (True, 1, "true", or
+        # "yes") on the relationship record itself. Only relationships not
+        # marked essential are candidates for removal, and about 20 percent
+        # of those candidates are randomly removed.
+        def is_essential(rel):
+            if not isinstance(rel, dict):
+                return False
+            for key in ("essential", "is_essential"):
+                if key in rel:
+                    value = rel[key]
+                    if value is True or value == 1 or (isinstance(value, str) and value.strip().lower() in ("true", "yes")):
+                        return True
+            return False
+        simplified_relationships = [r for r in simplified_relationships if is_essential(r) or random.random() > 0.2]
+        logging.info("Non-essential relationships removed. Relationships marked essential were kept.")
 
     data['relationships'] = simplified_relationships
     return data
@@ -207,6 +222,10 @@ def main():
     # Input validation
     if args.anonymize_data and args.anonymization_level not in ['low', 'medium', 'high']:
         logging.error("Invalid anonymization level. Must be one of: low, medium, high.")
+        sys.exit(1)
+
+    if Path(args.input).resolve() == Path(args.output).resolve():
+        logging.error("Output file is the same file as the input file. Refusing to overwrite the input in place.")
         sys.exit(1)
 
     try:

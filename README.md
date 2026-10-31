@@ -14,10 +14,16 @@ Simplifies complex relationships between datasets by identifying and removing re
 - `-i`: Path to the input JSON file containing data relationships.
 - `-o`: Path to the output JSON file to save the simplified relationships.
 - `--remove-redundant`: Remove redundant relationships.
-- `--remove-non-essential`: Remove non-essential relationships.
+- `--remove-non-essential`: Remove non-essential relationships. A relationship marked essential in its data is never removed; see the essentiality rule below.
 - `--anonymize-data`: Anonymize data in the datasets.
 - `--anonymization-level`: No description provided
 - `--seed`: No description provided
+
+## Essentiality rule and output path
+
+--remove-non-essential follows one stated rule. A relationship whose data marks it essential is never removed by this flag. The marker is an essential or is_essential field set to a true value (true, 1, "true", or "yes") on the relationship record itself. Only relationships not marked essential are candidates for removal, and about 20 percent of those candidates are randomly removed. Use --seed for a reproducible draw.
+
+The output file must not be the input file. If the resolved output path equals the resolved input path, the run refuses at exit 1 before any write, including when the same file is named through a ./ alias or a symlink.
 
 ## License
 Copyright (c) ShadowGuardAI
