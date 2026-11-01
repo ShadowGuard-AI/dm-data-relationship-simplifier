@@ -141,6 +141,10 @@ def anonymize_data(data, level='medium', seed=None):
         random.seed(seed)
 
     fake = Faker()
+    # Faker.seed takes the seed even when it is None, and random was seeded
+    # with that same value just above. When main runs simplify first and
+    # this second, both steps restart the random sequence from the same
+    # seed, so the draws in the two steps are not independent of each other.
     Faker.seed(seed)
 
     # Example: Assuming datasets are stored in a 'datasets' key, and each dataset is a list of dictionaries
@@ -164,6 +168,14 @@ def anonymize_data(data, level='medium', seed=None):
                 logging.error("Each record in the dataset should be a dictionary.")
                 raise ValueError("Each record in the dataset should be a dictionary.")
 
+            # The level decides by field name, not by content: a string is
+            # treated as a name because its key contains "name", which also
+            # matches keys like "username" or "filename". Values are replaced
+            # in place on the record itself. At low, a string whose key names
+            # none of the three known kinds is left exactly as it was, and at
+            # every level a float, a list, or a nested record passes through
+            # untouched, except at high, where the next branch replaces the
+            # whole value whatever it is.
             for key, value in record.items():
                 if level == 'low':
                     # Replace with similar-looking data (e.g., names with similar names)
@@ -189,6 +201,11 @@ def anonymize_data(data, level='medium', seed=None):
                         else:
                             record[key] = fake.word()
                     elif isinstance(value, int):
+                        # Booleans land in this branch too, because bool is
+                        # an int in Python. A true flag at medium comes out
+                        # as a number between 0 and 100, with its type and
+                        # its meaning both gone. I leave that noted here as
+                        # a known cost of the isinstance chain.
                         record[key] = random.randint(0, 100)  # Replace with a random integer
 
                 elif level == 'high':
@@ -230,6 +247,10 @@ def main():
 
     try:
         data = load_data(args.input)
+        # Simplification always runs before anonymization when both flags
+        # are set, so anonymize only ever sees the relationships that
+        # survived. Relationships removed here cannot leak values into the
+        # anonymized output, and records in kept ones are what gets replaced.
         simplified_data = simplify_relationships(data, args.remove_redundant, args.remove_non_essential, args.seed)
 
         if args.anonymize_data:
