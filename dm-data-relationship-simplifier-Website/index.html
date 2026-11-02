@@ -1,166 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Dm Data Relationship Simplifier: what it is, how it runs, where it stops</title>
-<meta name="description" content="Dm Data Relationship Simplifier is one of my projects. The README in the repo is short, so this page sticks to what the files themselves show.">
-<style>
-:root {
-  --bg: #0a0e1a; --panel: #11182c; --ink: #e9edf5;
-  --mut: #16203b;
-  --acc: #ff8c42; --acc2: #ffc46b;
-  --line: #11182c;
-}
-* { box-sizing: border-box; }
-body { margin: 0; background: var(--bg); color: var(--ink);
-  font-family: Verdana, Geneva, sans-serif; line-height: 1.55; }
-code, pre, .mono { font-family: 'Lucida Console', monospace; }
-a { color: var(--acc2); }
-.hero { padding: 3rem 6vw 1rem; }
-.hero img.banner { width: 100%; height: auto; border: 1px solid var(--line);
-  border-radius: 10px; }
-.logo { width: 92px; height: 92px; border-radius: 18px;
-  border: 1px solid var(--line); }
-h1 { font-size: 2.4rem; margin: 0.4em 0 0.1em; }
-h2 { border-bottom: 2px solid var(--acc); padding-bottom: 0.2em;
-  margin-top: 2em; }
-.lede { font-size: 1.15rem; max-width: 62ch; }
-main { padding: 0 6vw 3rem; max-width: 1180px; margin: 0 auto; }
-.grid { display: grid; gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
-.card { background: var(--panel); border: 1px solid var(--line);
-  border-radius: 12px; padding: 1rem 1.2rem; }
-.card.pop { animation: rise 0.7s ease both; }
-@keyframes rise { from { opacity: 0; transform: translateY(14px); }
-  to { opacity: 1; transform: none; } }
-pre.code { background: #101014; color: #e8e6df; padding: 1rem 1.2rem;
-  border-radius: 12px; overflow-x: auto; font-size: 0.86rem;
-  border-left: 5px solid var(--acc); }
-table { border-collapse: collapse; width: 100%; }
-td, th { border-bottom: 1px solid var(--line); padding: 0.45rem 0.6rem;
-  text-align: left; }
-.shots { display: grid; gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
-.shots img { width: 100%; height: auto; border: 1px solid var(--line);
-  border-radius: 10px; background: #f4f1e8; }
-footer { padding: 2rem 6vw; border-top: 1px solid var(--line);
-  color: var(--mut); }
-.rail { display: flex; gap: 1.2rem; align-items: flex-start; }
-.rail nav { position: sticky; top: 1rem; min-width: 180px; }
-@media (max-width: 760px) { .rail { flex-direction: column; }
-  .rail nav { position: static; } }
-@media (prefers-reduced-motion: reduce) {
-  .card.pop { animation: none; } * { scroll-behavior: auto; } }
-</style>
-</head>
-<body class="layout-cards">
-<!-- This page exists for dm-data-relationship-simplifier alone: the layout (index-cards),
-     the colors, and the type were picked for this project, not
-     shared with the other project pages. The code block below is
-     copied from the file it names, line for line. If it looks
-     plain, that is because the project is plain, and I would
-     rather the page match the project than dress it up. The one
-     thing I will not do here is oversell: what this project does
-     not do is stated on the page, not hidden from it. -->
-<header class="hero">
-  <img class="logo" src="assets/logo.png" alt="Dm Data Relationship Simplifier logo">
-  <img class="banner" src="assets/banner.png" alt="">
-  <h1>Dm Data Relationship Simplifier</h1>
-  <p class="mono"><a href="https://github.com/ShadowGuard-AI/dm-data-relationship-simplifier">github.com/ShadowGuard-AI/dm-data-relationship-simplifier</a></p>
-</header>
+<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><title>dm-data-relationship-simplifier: Celtic Ogham Stones of the Roadsides</title>
+<style>@font-face{font-family:Head;src:url("fonts/Cambo.ttf")}@font-face{font-family:Text;src:url("fonts/AlegreyaSans.ttf")}
+body{background:#dde2e2;font-family:Text,sans-serif;color:#3e3e42;margin:0}main{max-width:920px;margin:0 auto;padding:28px}
+h1,h2,h3{font-family:Head,serif;color:#4a341e}section{background:#c9cfd0;padding:18px 22px;margin:16px 0;border:2px solid #2b2b2e;border-left:6px solid #6b4e2e}
+img{max-width:100%}button{background:#8a9396;color:#2b2b2e;border:2px solid #2b2b2e;border-top:6px solid #2b2b2e;padding:12px 22px;font-family:Head,serif}
+button:hover{border-top-color:#d9a441}button:active{transform:translateY(2px)}button:focus{outline:2px solid #2b2b2e;outline-offset:3px}
+a{color:#2b2b2e}a::before{content:"|  ";color:#2b2b2e}a:hover::before{color:#d9a441}
+.label{display:inline-block;border:1px solid #2b2b2e;padding:2px 8px;font-size:13px}pre{white-space:pre-wrap;background:#dde2e2;padding:14px}
+.absence{font-size:28px;font-family:Head,serif;color:#4a341e}.kept{color:#b07f1e}</style></head><body><main>
+<img src="intro-banner.png" alt="Introduction banner: a foreground Ogham stone edge with notch groups under raking light, a road bending past two farther stones into dusk fields, no lettering">
+<h1>dm-data-relationship-simplifier: Celtic Ogham Stones of the Roadsides</h1>
+<p>Wherever this site names itself, it uses the joined form dm-data-relationship-simplifier: Celtic Ogham Stones of the Roadsides, repository first, theme second. The page is laid out as a road walked stone by stone, each plate a stone along the way.</p>
+<p class="absence">Entry status: partial. The theme entry for this repository is incomplete and stands on the formal completions owed list. This site is built only from the parts of the entry that survive plus the live README, and nothing has been invented to complete the entry.</p>
+<img src="logo.png" alt="Logo: a standing stone seen from its corner, notch groups along the arris, a viking oak band at the foot, one top cut lit amber, the name below"><img src="banner.png" alt="Wordmark banner: a roadside in low light, the title cut on the foreground stone face, two farther stones along the road, fields and treeline behind">
+<img src="scene.svg" alt="Animated scene in three bands">
+<div><button type="button">Prune the Ties</button></div>
+<p><span class="label">Draw Seed</span></p>
+<h3>Marked Essential Means Kept</h3><h3>Input and Output Are Different Files</h3>
+<section><h2>First stone: the job</h2><p>Complex relationships between datasets are simplified by finding and removing the redundant and the non-essential among them, cutting down both the attack surface and the tangle a masking run has to manage, so anonymisation gets easier to handle. Input and output are JSON files. The family note the README prints closes the plate: a tool among those that generate or mask sensitive data with realistic looking but meaningless values.</p></section>
+<section><h2>Second stone: fetching, with one labelled mend</h2><p><code>git clone https://github.com/ShadowGuard-AI/dm-data-relationship-simplifier</code></p><p>The line above is a correction, labelled a mend. The README's own address spells that organisation without its hyphen, so a visitor who copied the README literally would arrive at the wrong house. The corrected line stands here only, flagged as a mend, and is never passed off as original wording.</p></section>
+<section><h2>Third stone: the run shape</h2><p><code>./dm-data-relationship-simplifier [params]</code></p><p>That shape is all the source gives: program first, bracketed parameters after. No JSON from anyone's datasets is pasted beside it and no relationship record is quoted. The space stays empty on purpose.</p></section>
+<section><h2>Fourth stone: the controls in README order</h2><p>Help first: -h, the flag that shows the help message and exits. Input next: -i, the path to the input JSON file holding the relationships. Output next: -o, the path to the output JSON file for the simplified set. Then --remove-redundant. Then --remove-non-essential, carrying the pointer to the essentiality rule. Then --anonymize-data.</p><p class="absence">--anonymization-level: No description provided</p><p class="absence">--seed: No description provided</p><p>The two admissions above are printed at full size as absences, exactly as the README leaves them. The seed earns its explanation two plates on, inside the essentiality rule, not here.</p></section>
+<section><h2>Fifth stone: Marked Essential Means Kept</h2><p>A relationship whose own data marks it essential is never removed by the non-essential flag. The marker is an essential or is_essential field set to a true value on the relationship record itself, and the README prints the true spellings it accepts: true, 1, "true", or "yes". Only ties with no such marker are candidates. Of those candidates, about 20 percent are randomly removed. A seed makes that draw reproducible.</p></section>
+<section><h2>Sixth stone: Input and Output Are Different Files</h2><p>Output may not resolve to input. If the resolved paths land on the same file, spelled the same, reached through a ./ alias, or reached through a symlink, the run refuses at exit 1 before any write, and the input JSON keeps every tie it arrived with.</p></section>
+<section><h2>Seventh stone: permission cut at two depths</h2><p>The deeper incision is the standalone LICENSE file: MIT wording, ownership summarised by contour only, a year span, a two word pen name, a bracketed given name holding one initial, and a bracketed handle fronted by an at sign. The shallower incision is the README's final line, preserved in the copy below, its house name missing a hyphen. Both inscriptions stay legible. Neither gets recut to resemble the other.</p></section>
+<section><h2>The preserved README record</h2><pre>![Banner](banner.png)
 
-<main>
-  <section class="rail">
-    <nav aria-label="on this page">
-      <p class="mono"><a href="#run">Run it</a><br>
-      <a href="#files">The files</a><br>
-      <a href="#sheets">The sheets</a><br>
-      <a href="https://github.com/ShadowGuard-AI/dm-data-relationship-simplifier">The repo</a></p>
-    </nav>
-    <div>
-      <p class="lede">Dm Data Relationship Simplifier is one of my projects. The README in the repo is short, so this page sticks to what the files themselves show.</p>
-      <div class="grid">
-        <div class="card pop"><h3>What it is</h3>
-          <p>Dm Data Relationship Simplifier: 5 files, 253 counted
-          lines across Python 229, Markdown 23, Text 1. One job, done in the
-          open, in files you can read.</p></div>
-        <div class="card pop"><h3>The biggest piece</h3>
-          <p><code>main.py</code> carries the most
-          lines. If the project grows, that file is where the growth
-          lands first, for better or worse.</p></div>
-        <div class="card pop"><h3>The honest gap</h3>
-          <p>No test files yet. That is the honest gap, and the roadmap in the visuals folder says what the first one should cover.</p></div>
-      </div>
-      <section id="run">
-        <h2>Run it</h2>
-        <p>The repo README has the exact commands for this one. The
-        shape is the shape for most of my projects: clone it, read the
-        top file first so you know what will happen, then run it on
-        something you do not mind breaking.</p>
-        <p class="mono">$ git clone https://github.com/ShadowGuard-AI/dm-data-relationship-simplifier.git<br>$ cd dm-data-relationship-simplifier</p>
-      </section>
-      
-  <section aria-label="real code">
-    <h2>The code, as it sits in the repo</h2>
-    <p>From <code>main.py</code>, line 9 on. I did
-    not tidy it for the page. What you see is what the file has.</p>
-    <pre class="code"><code>logging.basicConfig(level=logging.INFO, format=&#x27;%(asctime)s - %(levelname)s - %(message)s&#x27;)
+# dm-data-relationship-simplifier
+Simplifies complex relationships between datasets by identifying and removing redundant or non-essential relationships. This reduces the attack surface and complexity of data masking operations, making it easier to manage data anonymization. - Focused on Tools designed to generate or mask sensitive data with realistic-looking but meaningless values
 
-def setup_argparse():
-    &quot;&quot;&quot;
-    Sets up the argument parser for the CLI.
-    &quot;&quot;&quot;
-    parser = argparse.ArgumentParser(description=&#x27;Simplifies data relationships for data masking.&#x27;)
+## Install
+`git clone https://github.com/ShadowGuardAI/dm-data-relationship-simplifier`
 
-    # Add arguments for input data and output configuration
-    parser.add_argument(&#x27;-i&#x27;, &#x27;--input&#x27;, type=str, required=True, help=&#x27;Path to the input JSON file containing data relationships.&#x27;)
-    parser.add_argument(&#x27;-o&#x27;, &#x27;--output&#x27;, type=str, required=True, help=&#x27;Path to the output JSON file to save the simplified relationships.&#x27;)
-    parser.add_argument(&#x27;--remove-redundant&#x27;, action=&#x27;store_true&#x27;, help=&#x27;Remove redundant relationships.&#x27;)
-    parser.add_argument(&#x27;--remove-non-essential&#x27;, action=&#x27;store_true&#x27;, help=&#x27;Remove non-essential relationships.&#x27;)
-    parser.add_argument(&#x27;--anonymize-data&#x27;, action=&#x27;store_true&#x27;, help=&#x27;Anonymize data in the datasets.&#x27;)
-    parser.add_argument(&#x27;--anonymization-level&#x27;, type=str, choices=[&#x27;low&#x27;, &#x27;medium&#x27;, &#x27;high&#x27;], default=&#x27;medium&#x27;, help=&#x27;Level of anonymization (low, medium, high). Defaults to medium.&#x27;)
-    parser.add_argument(&#x27;--seed&#x27;, type=int, help=&#x27;Seed for random number generator (for reproducibility).&#x27;)
+## Usage
+`./dm-data-relationship-simplifier [params]`
 
-    return parser.parse_args()
+## Parameters
+- `-h`: Show help message and exit
+- `-i`: Path to the input JSON file containing data relationships.
+- `-o`: Path to the output JSON file to save the simplified relationships.
+- `--remove-redundant`: Remove redundant relationships.
+- `--remove-non-essential`: Remove non-essential relationships. A relationship marked essential in its data is never removed; see the essentiality rule below.
+- `--anonymize-data`: Anonymize data in the datasets.
+- `--anonymization-level`: No description provided
+- `--seed`: No description provided
 
-def load_data(input_file):
-    &quot;&quot;&quot;
-    Loads data from a JSON file.</code></pre>
-  </section>
-      <section id="files">
-        <h2>The files that matter</h2>
-        <table><tr><th>File</th><th>Lines</th></tr>
-        <tr><td><code>main.py</code></td><td>229</td></tr>
-        <tr><td><code>README.md</code></td><td>23</td></tr>
-        <tr><td><code>requirements.txt</code></td><td>1</td></tr>
-        <tr><td><code>banner.png</code></td><td>0</td></tr>
-        <tr><td><code>logo.png</code></td><td>0</td></tr>
-        </table>
-        <p>Names doing the work: <span class="mono">setup_argparse, load_data, simplify_relationships, anonymize_data, save_data, main, dedup_key</span>.</p>
-      </section>
-      <section id="sheets">
-        <h2>Drawn by hand</h2>
-        <p>I sketch my projects on notebook paper so I have to
-        understand them well enough to draw them. The full set,
-        with the counts and how they were counted, is the
-        <a href="https://github.com/ShadowGuard-AI/dm-data-relationship-simplifier/tree/main/dm-data-relationship-simplifier-Visuals">dm-data-relationship-simplifier-Visuals</a>
-        folder in the repo. Nothing is drawn over the binder holes.
-        That is a rule, not a style.</p>
-        <div class="shots">
-          <img src="assets/architecture.png" alt="Hand drawn architecture sheet for Dm Data Relationship Simplifier">
-          <img src="assets/flowchart.png" alt="Hand drawn flowchart sheet for Dm Data Relationship Simplifier">
-          <img src="assets/product-map.png" alt="Hand drawn product map sheet for Dm Data Relationship Simplifier">
-        </div>
-      </section>
-    </div>
-  </section>
-</main>
-<footer>
-  <p>Dm Data Relationship Simplifier is one of my projects. This page was written
-  from the repo itself on 2026-10-30: the counts are the
-  repo's counts, the code is the repo's code, and the gaps are the
-  repo's gaps.</p>
-</footer>
-</body>
-</html>
+## Essentiality rule and output path
+
+--remove-non-essential follows one stated rule. A relationship whose data marks it essential is never removed by this flag. The marker is an essential or is_essential field set to a true value (true, 1, "true", or "yes") on the relationship record itself. Only relationships not marked essential are candidates for removal, and about 20 percent of those candidates are randomly removed. Use --seed for a reproducible draw.
+
+The output file must not be the input file. If the resolved output path equals the resolved input path, the run refuses at exit 1 before any write, including when the same file is named through a ./ alias or a symlink.
+
+## License
+Copyright (c) ShadowGuardAI</pre></section>
+</main></body></html>
